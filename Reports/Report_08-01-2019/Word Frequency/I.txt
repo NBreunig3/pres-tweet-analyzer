@@ -1,0 +1,26 @@
+Frequency of "I" mentions
+The results below are based on the number of times each candidate has mentioned a specific word in their tweets.
+Report Generated: 2019/08/01 21:04:53
+Report based on the past 1000 tweets.
+
+Hickenlooper: 91
+Warren: 89
+Gillibrand: 80
+Inslee: 77
+Klobuchar: 73
+Williamson: 66
+Sanders: 64
+Harris: 61
+Bullock: 59
+ORourke: 57
+Yang: 55
+Gabbard: 55
+Delaney: 46
+Biden: 44
+de Blasio: 41
+Castro: 39
+Trump: 38
+Bennet: 37
+Buttigieg: 34
+Booker: 33
+Ryan: 26

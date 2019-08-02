@@ -1,0 +1,26 @@
+Frequency of "Democrats" mentions
+The results below are based on the number of times each candidate has mentioned a specific word in their tweets.
+Report Generated: 2019/08/01 21:05:02
+Report based on the past 1000 tweets.
+
+Trump: 22
+Bennet: 7
+de Blasio: 7
+Delaney: 5
+Klobuchar: 5
+Hickenlooper: 4
+Warren: 4
+Williamson: 4
+Bullock: 3
+Sanders: 3
+Biden: 3
+Gillibrand: 3
+Yang: 2
+Gabbard: 2
+Inslee: 2
+ORourke: 2
+Buttigieg: 2
+Ryan: 2
+Booker: 1
+Castro: 1
+Harris: 0
