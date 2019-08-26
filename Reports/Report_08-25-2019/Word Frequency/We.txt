@@ -1,0 +1,24 @@
+Frequency of "We" mentions
+The results below are based on the number of times each candidate has mentioned a specific word in their tweets.
+Report Generated: 2019/08/25 22:04:26
+Report based on the past 1000 tweets.
+
+Biden: 130
+ORourke: 128
+Bullock: 113
+Gillibrand: 112
+Sanders: 107
+Klobuchar: 99
+Booker: 88
+Williamson: 83
+Buttigieg: 76
+Harris: 75
+Warren: 67
+Gabbard: 61
+Ryan: 55
+Castro: 54
+Delaney: 52
+de Blasio: 48
+Yang: 45
+Bennet: 41
+Trump: 27
