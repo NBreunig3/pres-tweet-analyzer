@@ -1,0 +1,15 @@
+Total mentions of all candidates
+The results below are based on the total number of times each candidate has been mentioned across all candidates twitter accounts.
+Report Generated: 2019/09/09 12:41:42
+Report based on the past 1000 tweets.
+
+Trump: 160
+Warren: 1
+Biden: 1
+Booker: 1
+Sanders: 1
+Yang: 0
+Harris: 0
+Castro: 0
+Klobuchar: 0
+ORourke: 0

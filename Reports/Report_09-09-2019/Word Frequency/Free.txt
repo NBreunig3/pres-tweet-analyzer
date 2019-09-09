@@ -1,0 +1,15 @@
+Frequency of "Free" mentions
+The results below are based on the number of times each candidate has mentioned a specific word in their tweets.
+Report Generated: 2019/09/09 12:41:31
+Report based on the past 1000 tweets.
+
+Warren: 5
+Biden: 4
+Sanders: 3
+Castro: 3
+Booker: 1
+Klobuchar: 1
+ORourke: 1
+Trump: 1
+Yang: 0
+Harris: 0

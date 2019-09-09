@@ -1,0 +1,14 @@
+Booker - Mentions of other candidates
+The results below are based on how many times this candidate has mentioned another candidate in their tweets.
+Report Generated: 2019/09/09 12:40:58
+Report based on the past 1000 tweets.
+
+Trump: 6
+Warren: 0
+Biden: 0
+Yang: 0
+Sanders: 0
+Harris: 0
+Castro: 0
+Klobuchar: 0
+ORourke: 0

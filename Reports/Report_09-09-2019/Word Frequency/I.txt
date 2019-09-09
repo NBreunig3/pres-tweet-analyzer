@@ -1,0 +1,15 @@
+Frequency of "I" mentions
+The results below are based on the number of times each candidate has mentioned a specific word in their tweets.
+Report Generated: 2019/09/09 12:41:17
+Report based on the past 1000 tweets.
+
+Biden: 57
+Klobuchar: 53
+Harris: 51
+Warren: 50
+Trump: 50
+Castro: 48
+ORourke: 47
+Booker: 41
+Yang: 41
+Sanders: 36
