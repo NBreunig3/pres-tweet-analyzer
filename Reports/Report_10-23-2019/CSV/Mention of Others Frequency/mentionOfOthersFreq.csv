@@ -1,0 +1,12 @@
+candidate,candidate-mentions
+Warren,Trump-26,Booker-1,Harris-1,Castro-1,Biden-0,Yang-0,Sanders-0,Gabbard-0,Klobuchar-0,ORourke-0
+Biden,Trump-83,Warren-0,Booker-0,Yang-0,Sanders-0,Harris-0,Gabbard-0,Castro-0,Klobuchar-0,ORourke-0
+Booker,Trump-8,Sanders-2,ORourke-2,Warren-1,Biden-1,Harris-1,Yang-0,Gabbard-0,Castro-0,Klobuchar-0
+Yang,Trump-4,Warren-1,Harris-1,Gabbard-1,Biden-0,Booker-0,Sanders-0,Castro-0,Klobuchar-0,ORourke-0
+Sanders,Trump-18,Biden-2,Gabbard-1,Warren-0,Booker-0,Yang-0,Harris-0,Castro-0,Klobuchar-0,ORourke-0
+Harris,Trump-30,Castro-1,Warren-0,Biden-0,Booker-0,Yang-0,Sanders-0,Gabbard-0,Klobuchar-0,ORourke-0
+Gabbard,Trump-19,Sanders-6,Warren-5,Yang-5,Harris-4,Castro-3,Biden-2,Booker-2,Klobuchar-2,ORourke-0
+Castro,Trump-13,Harris-1,Warren-0,Biden-0,Booker-0,Yang-0,Sanders-0,Gabbard-0,Klobuchar-0,ORourke-0
+Klobuchar,Trump-26,Warren-1,Harris-1,Biden-0,Booker-0,Yang-0,Sanders-0,Gabbard-0,Castro-0,ORourke-0
+ORourke,Trump-30,Biden-1,Sanders-1,Harris-1,Warren-0,Booker-0,Yang-0,Gabbard-0,Castro-0,Klobuchar-0
+Trump,Warren-0,Biden-0,Booker-0,Yang-0,Sanders-0,Harris-0,Gabbard-0,Castro-0,Klobuchar-0,ORourke-0

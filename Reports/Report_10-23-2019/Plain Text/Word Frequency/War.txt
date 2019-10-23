@@ -1,0 +1,16 @@
+Frequency of "War" mentions
+The results below are based on the number of times each candidate has mentioned a specific word in their tweets.
+Report Generated: 2019/10/23 11:43:08
+Report based on the past 1000 tweets.
+
+Gabbard: 20
+ORourke: 6
+Harris: 3
+Klobuchar: 3
+Biden: 2
+Sanders: 1
+Warren: 0
+Booker: 0
+Yang: 0
+Castro: 0
+Trump: 0

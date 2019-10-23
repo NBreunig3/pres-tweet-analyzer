@@ -1,0 +1,20 @@
+Trump - Word Count
+The results below are the most common words said on this candidates Twitter account.
+Report Generated: 2019/10/23 11:43:08
+Report based on the past 1000 tweets.
+
+warmest: 1
+kind: 1
+forward: 1
+words: 1
+please: 1
+regards: 1
+people: 1
+look: 1
+courage: 1
+soon: 1
+extend: 1
+general: 1
+seeing: 1
+kurdish: 1
+mazloum: 1
