@@ -1,28 +1,33 @@
+import com.sun.org.apache.bcel.internal.generic.ANEWARRAY;
 import twitter4j.*;
 
 import javax.swing.*;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.HashMap;
 /**
  * @author Nathan Breunig
- * @version 1.0
- * LAST MODIFIED 8/1/19
+ * @version 1.2
+ * LAST MODIFIED 10/8/19
  */
-
 public class Client {
     private static Output output = new Output();
     private static Analyzer analyzer = new Analyzer();
+
+    private static HashMap<String, HashMap<String, Integer>> countAllWordsMap;
+    private static HashMap<String, HashMap<String, Integer>> mentionOthersMap;
+    private static HashMap<String, HashMap<String, Integer>> wordFreqMap;
+    private static HashMap<String, Integer> totalMentionsMap;
 
     /**
      * Main method
      * Meant to be run from the command line
      * @param args [number of tweets to fetch] [wordFrequency word to use]
-     * @throws TwitterException
+     * @throws TwitterException Twitter Exception
      */
-    //TODO add command line arguments (number of tweets to search, wordFrequency word to use)
     public static void main(String[] args) throws TwitterException {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Choose a directory for report");
@@ -30,8 +35,20 @@ public class Client {
         fileChooser.setAcceptAllFileFilterUsed(false);
         int response = fileChooser.showSaveDialog(null);
         if (response == JFileChooser.APPROVE_OPTION){
+            //Run Analyzer
+            countAllWordsMap = analyzer.countAllWords();
+            System.out.println("Done");
+            mentionOthersMap = analyzer.mentionOthersFrequency();
+            System.out.println("Done");
+            wordFreqMap = analyzer.wordFrequency(Analyzer.getWordFreqWords());
+            System.out.println("Done");
+            totalMentionsMap = analyzer.totalMentions();
+            System.out.println("Done");
+
+            //Save Report
             File path = fileChooser.getSelectedFile();
-            saveReport(path);
+            File mainDir = createSaveDir(path); //Maybe not needed? Just pass path?
+            saveReport(mainDir);
         }else {
             System.exit(0);
         }
@@ -40,33 +57,59 @@ public class Client {
     /**
      * Saves multiple files in a directory for all Analyzer methods
      * (countAllWords, mentionOthersFrequency, wordFrequency, totalMentions)
-     * @param path Where to save the generated report
+     * @param mainDir Where to save the generated report
      */
-    public static void saveReport(File path) {
-        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-        //Create Directories
-        File dir = new File(path.getPath() + "\\Report_" + dateFormat.format(new Date()));
-        dir.mkdir();
-        new File(dir.getPath() + "\\Word Count").mkdir();
-        new File(dir.getPath() + "\\Mention of Others Frequency").mkdir();
-        new File(dir.getPath() + "\\Word Frequency").mkdir();
-        new File(dir.getPath() + "\\Total Mentions").mkdir();
+    private static void saveReport(File mainDir) {
+        File plainTextDir = new File(mainDir.getPath() + "\\Plain Text\\");
+        File csvDir = new File(mainDir.getPath() + "\\CSV\\");
 
+        //Count All Words
         for (String cand : Candidates.getCandidates()) {
-            output.saveResults(new File(dir.getPath() + "\\Word Count\\" + cand + ".txt"), cand + " - Word Count", output.getDescription("countAllWords"), analyzer.countAllWords(cand));
-            System.out.println("Done! countAll: " + cand);
+            output.savePlainTextReport(new File(plainTextDir.getPath() + "\\Word Count\\" + cand + ".txt"), cand + " - Word Count", output.getDescription("countAllWords"), countAllWordsMap.get(cand));
         }
+        output.saveCSVReport(new File(csvDir.getPath() + "\\Word Count\\WordCount.csv"), "CountAllWords", countAllWordsMap, null);
+
+        //Mentions of others
         for (String cand : Candidates.getCandidates()) {
-            output.saveResults(new File(dir.getPath() + "\\Mention of Others Frequency\\" + cand + ".txt"), cand + " - Mentions of other candidates", output.getDescription("mentionOthersFrequency"), analyzer.mentionOthersFrequency(cand));
-            System.out.println("Done! mentions: " + cand);
+            output.savePlainTextReport(new File(plainTextDir.getPath() + "\\Mention of Others Frequency\\" + cand + ".txt"), cand + " - Mentions of other candidates", output.getDescription("mentionOthersFrequency"), mentionOthersMap.get(cand));
         }
-        output.saveResults(new File(dir.getPath() + "\\Word Frequency\\We.txt"), "Frequency of \"We\" mentions", output.getDescription("wordFrequency"), analyzer.wordFrquency("We"));
-        output.saveResults(new File(dir.getPath() + "\\Word Frequency\\I.txt"), "Frequency of \"I\" mentions", output.getDescription("wordFrequency"), analyzer.wordFrquency("I"));
-        output.saveResults(new File(dir.getPath() + "\\Word Frequency\\Democrats.txt"), "Frequency of \"Democrats\" mentions", output.getDescription("wordFrequency"), analyzer.wordFrquency("Democrats"));
-        output.saveResults(new File(dir.getPath() + "\\Word Frequency\\Republicans.txt"), "Frequency of \"Republicans\" mentions", output.getDescription("wordFrequency"), analyzer.wordFrquency("Republicans"));
-        output.saveResults(new File(dir.getPath() + "\\Word Frequency\\Free.txt"), "Frequency of \"Free\" mentions", output.getDescription("wordFrequency"), analyzer.wordFrquency("Free"));
-        System.out.println("Done! wordFreq");
-        output.saveResults(new File(dir.getPath() + "\\Total Mentions\\totalMentions.txt"), "Total mentions of all candidates", output.getDescription("totalMentions"), analyzer.totalMentions());
-        System.out.println("Done! totalMentions");
+        output.saveCSVReport(new File(csvDir.getPath() + "\\Mention of Others Frequency\\mentionOfOthersFreq.csv"), "MentionOthersFreq", mentionOthersMap, null);
+
+        //Word Frequency
+        for (String s : Analyzer.getWordFreqWords()){
+            output.savePlainTextReport(new File(plainTextDir.getPath() + "\\Word Frequency\\" + s + ".txt"), "Frequency of \"" + s + "\" mentions", output.getDescription("wordFrequency"), wordFreqMap.get(s));
+        }
+        output.saveCSVReport(new File(csvDir.getPath() + "\\Word Frequency\\WordFrequency.csv"), "WordFreq", wordFreqMap, null);
+
+        //Total Mentions
+        output.savePlainTextReport(new File(plainTextDir.getPath() + "\\Total Mentions\\totalMentions.txt"), "Total mentions of all candidates", output.getDescription("totalMentions"), totalMentionsMap);
+        output.saveCSVReport(new File(csvDir.getPath() + "\\Total Mentions\\totalMentions.csv"), "TotalMentions", null, totalMentionsMap);
+    }
+
+    private static File createSaveDir(File path){
+        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+
+        //Create Directories
+        //Create Main Directory
+        File mainDir = new File(path.getPath() + "\\Report_" + dateFormat.format(new Date()));
+        mainDir.mkdir();
+        //Create Plain Text Directory
+        File plainTextDir = new File(mainDir.getPath() + "\\Plain Text");
+        plainTextDir.mkdir();
+        //Create CSV Directory
+        File csvDir = new File(mainDir.getPath() + "\\CSV");
+        csvDir.mkdir();
+
+        //Create Sub Directories
+        new File(plainTextDir.getPath() + "\\Word Count").mkdir();
+        new File(plainTextDir.getPath() + "\\Mention of Others Frequency").mkdir();
+        new File(plainTextDir.getPath() + "\\Word Frequency").mkdir();
+        new File(plainTextDir.getPath() + "\\Total Mentions").mkdir();
+        new File(csvDir.getPath() + "\\Word Count").mkdir();
+        new File(csvDir.getPath() + "\\Mention of Others Frequency").mkdir();
+        new File(csvDir.getPath() + "\\Word Frequency").mkdir();
+        new File(csvDir.getPath() + "\\Total Mentions").mkdir();
+
+        return mainDir;
     }
 }

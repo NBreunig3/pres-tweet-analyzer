@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * A tool to analyze data from presidential candidates Twitter accounts
  * @author Nathan Breunig
- * LAST MODIFIED 8/1/19
+ * LAST MODIFIED 10/3/19
  */
 public class Analyzer {
     private Twitter twitter;
@@ -55,11 +55,30 @@ public class Analyzer {
      *
      * @param word word to look for
      */
-    public HashMap<String, Integer> wordFrquency(String word) {
+    public HashMap<String, Integer> wordFrequency(String word) {
         HashMap<String, Integer> hashMap = new HashMap<>();
 
         for (String s : Candidates.getCandidates()) {
             hashMap.put(s, wordFrequency(s, word));
+        }
+        return hashMap;
+    }
+
+    //todo write correct javadoc with hashmap meaning
+    public HashMap<String, HashMap<String, Integer>> wordFrequency(ArrayList<String> words){
+        HashMap<String, HashMap<String, Integer>> hashMap = new HashMap<>();
+
+        for (String cand : Candidates.getCandidates()) {
+            for (String word : words) {
+                HashMap<String, Integer> temp;
+                if (hashMap.get(word) == null){
+                    temp = new HashMap<>();
+                }else {
+                    temp = hashMap.get(word);
+                }
+                temp.put(cand, wordFrequency(cand, word));
+                hashMap.put(word, temp);
+            }
         }
         return hashMap;
     }
@@ -189,6 +208,7 @@ public class Analyzer {
 
         //Remove links and @'s
         for (int i = 0; i < words.length; i++) {
+            words[i] = words[i].trim();
             if (removeAts) {
                 if (words[i].substring(0, 1).equals("@") || words[i].contains("http") ) {
                     words[i] = "";
@@ -281,6 +301,10 @@ public class Analyzer {
         return hashSet;
     }
 
+    /**
+     * Gets a hash set with all letters
+     * @return Hash Set
+     */
     private HashSet<Character> getLetters(){
         HashSet<Character> hashSet = new HashSet<>();
 
@@ -288,5 +312,22 @@ public class Analyzer {
             hashSet.add(c);
         }
         return hashSet;
+    }
+
+    //TODO javadoc
+    public static ArrayList<String> getWordFreqWords(){
+        ArrayList<String> words = new ArrayList<>();
+        words.add("We");
+        words.add("I");
+        words.add("Democrats");
+        words.add("Republicans");
+        words.add("Free");
+        words.add("Climate");
+        words.add("Impeachment");
+        words.add("Ukraine");
+        words.add("War");
+        words.add("Health care");
+        words.add("Americans");
+        return words;
     }
 }
