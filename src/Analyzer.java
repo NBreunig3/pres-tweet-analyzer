@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * A tool to analyze data from presidential candidates Twitter accounts
  * @author Nathan Breunig
- * LAST MODIFIED 10/3/19
+ * LAST MODIFIED 12/1/19
  */
 public class Analyzer {
     private Twitter twitter;
@@ -91,20 +91,14 @@ public class Analyzer {
     public HashMap<String, Integer> mentionOthersFrequency(String candidate) {
         HashMap<String, Integer> hashMap = new HashMap<>();
 
-        try {
-            List<Status> tweets = twitter.getUserTimeline(Candidates.getUsernames().get(candidate), paging);
-
-            for (String otherCandidate : Candidates.getCandidates()) {
-                if (!otherCandidate.equals(candidate)) {
+        for (String otherCandidate : Candidates.getCandidates()) {
+            if (!otherCandidate.equals(candidate)) {
+                if (hashMap.get(otherCandidate) == null) {
                     hashMap.put(otherCandidate, 0);
-                    for (Status tweet : tweets) {
-                        hashMap.put(otherCandidate, hashMap.get(otherCandidate) + wordFreq(tweet.getText(), otherCandidate, true));
-                        hashMap.put(otherCandidate, hashMap.get(otherCandidate) + wordFreq(tweet.getText(), "@" + Candidates.getUsernames().get(otherCandidate), false));
-                    }
                 }
+                hashMap.put(otherCandidate, hashMap.get(otherCandidate) + wordFrequency(candidate, otherCandidate)); // Called by name
+                hashMap.put(otherCandidate, hashMap.get(otherCandidate) + wordFrequency(candidate, Candidates.getUsernames().get(otherCandidate))); // Called by username
             }
-        } catch (TwitterException e) {
-            System.out.println(e.getMessage());
         }
         return hashMap;
     }
