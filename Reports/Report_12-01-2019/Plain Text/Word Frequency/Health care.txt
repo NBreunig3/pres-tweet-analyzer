@@ -1,0 +1,16 @@
+Frequency of "Health care" mentions
+The results below are based on the number of times each candidate has mentioned a specific word in their tweets.
+Report Generated: 2019/12/01 23:34:41
+Report based on the past 1000 tweets.
+
+Warren: 0
+Biden: 0
+Booker: 0
+Yang: 0
+Sanders: 0
+Harris: 0
+Gabbard: 0
+Castro: 0
+Klobuchar: 0
+ORourke: 0
+Trump: 0

@@ -1,0 +1,16 @@
+Frequency of "Americans" mentions
+The results below are based on the number of times each candidate has mentioned a specific word in their tweets.
+Report Generated: 2019/12/01 23:34:41
+Report based on the past 1000 tweets.
+
+ORourke: 14
+Biden: 12
+Booker: 11
+Castro: 11
+Klobuchar: 10
+Warren: 9
+Harris: 8
+Gabbard: 8
+Sanders: 7
+Trump: 4
+Yang: 2

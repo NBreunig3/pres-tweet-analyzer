@@ -1,0 +1,16 @@
+Frequency of "Climate" mentions
+The results below are based on the number of times each candidate has mentioned a specific word in their tweets.
+Report Generated: 2019/12/01 23:34:41
+Report based on the past 1000 tweets.
+
+Biden: 12
+Warren: 11
+Sanders: 7
+Klobuchar: 5
+ORourke: 5
+Castro: 4
+Booker: 2
+Harris: 2
+Yang: 0
+Gabbard: 0
+Trump: 0

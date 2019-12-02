@@ -1,0 +1,16 @@
+Frequency of "We" mentions
+The results below are based on the number of times each candidate has mentioned a specific word in their tweets.
+Report Generated: 2019/12/01 23:34:41
+Report based on the past 1000 tweets.
+
+ORourke: 128
+Sanders: 121
+Biden: 112
+Booker: 91
+Klobuchar: 86
+Warren: 77
+Harris: 74
+Castro: 68
+Yang: 38
+Gabbard: 36
+Trump: 21
