@@ -4,7 +4,7 @@ By Nathan Breunig.
 
 ## Analysis
 #### Word Count
-This method looks at each candidate's individual Twitter account and determines which words have been repeated the most in their tweets.<br/>
+This method looks at each candidate's individual Twitter account and determines which significant words have been repeated the most in their tweets.<br/>
 *Report below was generated 12/1/19. See "Word Count" under the "Reports" folder.*
 ![](https://i.imgur.com/9AZwMqd.png)
 
