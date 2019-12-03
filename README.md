@@ -3,20 +3,24 @@ A tool used to analyze the 2020 presidential candidate's Twitter accounts in var
 By Nathan Breunig.
 
 ## Analysis
-#### Word Frequency
-This method takes any word such as "Healthcare" and counts how many times each candidate has said that word in their tweets. <br/>
-*See "Word Frequency" under the "Reports" folder.*
+#### Word Count
+This method looks at each candidate's individual Twitter account and determines which words have been repeated the most in their tweets.<br/>
+*Report below was generated 12/1/19. See "Word Count" under the "Reports" folder.*
+![](https://i.imgur.com/9AZwMqd.png)
+
+#### Key Word Frequency
+This method takes any key word such as "Healthcare" and counts how many times each candidate has mentioned that word in their tweets. <br/>
+*Report below was generated 12/1/19. See "Word Frequency" under the "Reports" folder.*
+![](https://i.imgur.com/85hyhRP.png)
 
 #### Mentions of Others Frequency
-This method will look at each candidates Twitter account and determine how many times that candidate has mentioned all other candidates in their tweets. <br/> 
-*See "Mentions of Others Frequency" under the "Reports" folder.*
+This method will look at each candidates Twitter account and determine how many times that candidate has mentioned any other candidate in their tweets. <br/> 
+*Report below was generated 12/1/19. See "Mentions of Others Frequency" under the "Reports" folder.*
+![](https://i.imgur.com/lGEDFjf.png)
 
 #### Total Mentions
-This method scans through all the candidates tweets and tallys up how many times each candidate has been mentioned. <br/>
-*See "Total Mentions" under the "Reports" folder.*
+This method scans through all the candidates tweets and tallys up how many times each candidate has been mentioned by another candidate. <br/>
+*Report below was generated 12/1/19. See "Total Mentions" under the "Reports" folder.*
+![](https://i.imgur.com/wd5rbgn.png)
 
-#### Word Count
-This method looks at each candidate's individual Twitter account and determine which words have been repeated the most in their tweets.<br/>
-*See "Word Count" under the "Reports" folder.*
-
-### To view analysis, click on the "Reports" folder!
+### To view analysis and CSV files, click on the "Reports" folder!
