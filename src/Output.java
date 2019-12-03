@@ -9,7 +9,7 @@ import java.util.*;
  * A class to either print out resulting data or save data to file from Analyzer
  *
  * @author Nathan Breunig
- * LAST MODIFIED 10/8/19
+ * LAST MODIFIED 12/2/19
  */
 public class Output {
     private HashMap<String, Integer> tempHashMap = new HashMap<>(); //So the freqComparator works
@@ -70,7 +70,6 @@ public class Output {
         }
     }
 
-    //TODO finish
     public void saveCSVReport(File file, String method, HashMap<String, HashMap<String, Integer>> hashMap, HashMap<String, Integer> totalMentionsMap) {
         try {
             BufferedWriter br = new BufferedWriter(new FileWriter(file));
@@ -97,7 +96,10 @@ public class Output {
                     br.newLine();
                 }
             }else if (method.equals("MentionOthersFreq")){
-                br.write("candidate,candidate-mentions");
+                br.write("candidate");
+                for (int i = 0; i < Candidates.getCandidates().size() -1; i++){
+                    br.write("candidate-mentions");
+                }
                 br.newLine();
                 for (String cand : Candidates.getCandidates()){
                     br.write(cand + ",");
