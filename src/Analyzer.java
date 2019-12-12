@@ -9,25 +9,35 @@ import java.util.*;
 /**
  * A tool to analyze data from presidential candidates Twitter accounts
  * @author Nathan Breunig
- * LAST MODIFIED 12/1/19
+ * LAST MODIFIED 12/11/19
  */
 public class Analyzer {
-    private Twitter twitter;
+    private static Twitter twitter;
     public static Paging paging;
-    private HashSet<String> functionWords;
-    private HashSet<Character> letters;
+    private static HashSet<String> functionWords;
+    private static HashSet<Character> letters;
+    private static HashMap<String, List<Status>> tweets;
 
     /**
-     * Constructor
-     * Paging set count is the number
-     * of tweets to retrieve from each account
+     * Method that needs to be run before any other to setup
+     * API and get all candidates tweets
      */
-    public Analyzer() {
+    public static void setup(){
         twitter = Setup.setup();
         paging = new Paging();
-        paging.setCount(1000);
+        paging.setCount(5000);
         functionWords = readFunctionWords();
         letters = getLetters();
+        tweets = new HashMap<>();
+        // Get all candidates tweets
+        for (String candidate : Candidates.getCandidates()){
+            try {
+                List<Status> candTweets = twitter.getUserTimeline(Candidates.getUsernames().get(candidate), paging);
+                tweets.put(candidate, candTweets);
+            }catch (TwitterException e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     /**
@@ -35,16 +45,10 @@ public class Analyzer {
      *
      * @param word A word to check
      */
-    public int wordFrequency(String candidate, String word) {
+    public static int wordFrequency(String candidate, String word) {
         int freq = 0;
-        try {
-            List<Status> tweets = twitter.getUserTimeline(Candidates.getUsernames().get(candidate), paging);
-
-            for (Status s : tweets) {
-                freq += wordFreq(s.getText(), word, true);
-            }
-        } catch (TwitterException e) {
-            System.out.println(e.getMessage());
+        for (Status s : tweets.get(candidate)) {
+            freq += wordFreq(s.getText(), word, true);
         }
         return freq;
     }
@@ -55,7 +59,7 @@ public class Analyzer {
      *
      * @param word word to look for
      */
-    public HashMap<String, Integer> wordFrequency(String word) {
+    public static HashMap<String, Integer> wordFrequency(String word) {
         HashMap<String, Integer> hashMap = new HashMap<>();
 
         for (String s : Candidates.getCandidates()) {
@@ -65,7 +69,7 @@ public class Analyzer {
     }
 
     //todo write correct javadoc with hashmap meaning
-    public HashMap<String, HashMap<String, Integer>> wordFrequency(ArrayList<String> words){
+    public static HashMap<String, HashMap<String, Integer>> wordFrequency(ArrayList<String> words){
         HashMap<String, HashMap<String, Integer>> hashMap = new HashMap<>();
 
         for (String cand : Candidates.getCandidates()) {
@@ -88,7 +92,7 @@ public class Analyzer {
      *
      * @return HashMap
      */
-    public HashMap<String, Integer> mentionOthersFrequency(String candidate) {
+    public static HashMap<String, Integer> mentionOthersFrequency(String candidate) {
         HashMap<String, Integer> hashMap = new HashMap<>();
 
         for (String otherCandidate : Candidates.getCandidates()) {
@@ -108,7 +112,7 @@ public class Analyzer {
      * another candidate in a tweet
      * @return HashMap
      */
-    public HashMap<String, HashMap<String, Integer>> mentionOthersFrequency() {
+    public static HashMap<String, HashMap<String, Integer>> mentionOthersFrequency() {
         HashMap<String, HashMap<String, Integer>> hashMap = new HashMap<>();
 
         for (String candidate : Candidates.getCandidates()) {
@@ -122,24 +126,20 @@ public class Analyzer {
      * mentioned on the all other candidate accounts
      * @return HashMap
      */
-    public HashMap<String, Integer> totalMentions() {
+    public static HashMap<String, Integer> totalMentions() {
         HashMap<String, Integer> hashMap = new HashMap<>();
-        for (String s : Candidates.getCandidates()){
+        for (String s : Candidates.getCandidates()) {
             hashMap.put(s, 0);
         }
-        try {
-            for (String cand1 : Candidates.getCandidates()) {
-                List<Status> tweets = twitter.getUserTimeline(Candidates.getUsernames().get(cand1), paging);
-                for (String cand2 : Candidates.getCandidates()) {
-                    if (!cand1.equals(cand2)) {
-                        for (Status tweet : tweets){
-                            hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), cand2, false));
-                        }
+        for (String cand1 : Candidates.getCandidates()) {
+            List<Status> candTweets = tweets.get(cand1);
+            for (String cand2 : Candidates.getCandidates()) {
+                if (!cand1.equals(cand2)) {
+                    for (Status tweet : candTweets){
+                        hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), cand2, false));
                     }
                 }
             }
-        } catch (TwitterException e) {
-            System.out.println(e.getMessage());
         }
         return hashMap;
     }
@@ -151,25 +151,21 @@ public class Analyzer {
      * @param candidate Candidate to use. [Lastname] Ex. "Warren"
      * @return HashMap with each word attached to an integer frequency
      */
-    public HashMap<String, Integer> countAllWords(String candidate) {
+    public static HashMap<String, Integer> countAllWords(String candidate) {
         HashMap<String, Integer> hashMap = new HashMap<>();
 
-        try {
-            List<Status> tweets = twitter.getUserTimeline(Candidates.getUsernames().get(candidate), paging);
-            for (Status s : tweets){
-                String[] words = tweetSplitter(s.getText(), true, true);
-                for (int i = 0; i < words.length; i++){
-                    if (!words[i].equals("") && !functionWords.contains(words[i])) {
-                        if (hashMap.containsKey(words[i])) {
-                            hashMap.put(words[i], hashMap.get(words[i]) + 1);
-                        } else {
-                            hashMap.put(words[i], 1);
-                        }
+        List<Status> candTweets = tweets.get(candidate);
+        for (Status s : candTweets){
+            String[] words = tweetSplitter(s.getText(), true, true);
+            for (int i = 0; i < words.length; i++){
+                if (!words[i].equals("") && !functionWords.contains(words[i])) {
+                    if (hashMap.containsKey(words[i])) {
+                        hashMap.put(words[i], hashMap.get(words[i]) + 1);
+                    } else {
+                        hashMap.put(words[i], 1);
                     }
                 }
             }
-        }catch (TwitterException e){
-            System.out.println(e.getMessage());
         }
         return hashMap;
     }
@@ -180,7 +176,7 @@ public class Analyzer {
      *
      * @return HashMap from each candidate to there counted words
      */
-    public HashMap<String, HashMap<String, Integer>> countAllWords() {
+    public static HashMap<String, HashMap<String, Integer>> countAllWords() {
         HashMap<String, HashMap<String, Integer>> hashMap = new HashMap<>();
 
         for (String s : Candidates.getCandidates()){
@@ -195,7 +191,7 @@ public class Analyzer {
      * @param removeAts if it should remove @mentions to other users
      * @return String array
      */
-    private String[] tweetSplitter(String tweet, boolean removeAts, boolean removeHashtags){
+    private static String[] tweetSplitter(String tweet, boolean removeAts, boolean removeHashtags){
         tweet = tweet.toLowerCase();
 
         String[] words = tweet.split("\\s+");
@@ -251,7 +247,7 @@ public class Analyzer {
      * @param removeAts if @blah text should be removed from the tweet
      * @return frequency that toFind was found in tweet
      */
-    private int wordFreq(String tweet, String toFind, boolean removeAts) {
+    private static int wordFreq(String tweet, String toFind, boolean removeAts) {
         int freq = 0;
         toFind = toFind.toLowerCase();
         String[] words = tweetSplitter(tweet, removeAts, true);
@@ -269,7 +265,7 @@ public class Analyzer {
      * when using the various methods
      * @param range
      */
-    public void setTweetRange(int range){
+    public static void setTweetRange(int range){
         paging.setCount(range);
     }
 
@@ -277,7 +273,7 @@ public class Analyzer {
      * Helper method that runs on initialization
      * @return HashSet of function words
      */
-    private HashSet<String> readFunctionWords(){
+    private static HashSet<String> readFunctionWords(){
         File file = new File("res\\function_words.txt");
         HashSet<String> hashSet = new HashSet<>();
         try{
@@ -299,7 +295,7 @@ public class Analyzer {
      * Gets a hash set with all letters
      * @return Hash Set
      */
-    private HashSet<Character> getLetters(){
+    private static HashSet<Character> getLetters(){
         HashSet<Character> hashSet = new HashSet<>();
 
         for (char c = 'a'; c <= 'z'; c++){
