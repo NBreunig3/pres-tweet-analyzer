@@ -9,10 +9,9 @@ import java.util.*;
 /**
  * A tool to analyze data from presidential candidates Twitter accounts
  * @author Nathan Breunig
- * LAST MODIFIED 12/11/19
+ * LAST MODIFIED 12/13/19
  */
 public class Analyzer {
-    private static Twitter twitter;
     public static Paging paging;
     private static HashSet<String> functionWords;
     private static HashSet<Character> letters;
@@ -23,7 +22,7 @@ public class Analyzer {
      * API and get all candidates tweets
      */
     public static void setup(){
-        twitter = Setup.setup();
+        Twitter twitter = Setup.setup();
         paging = new Paging();
         paging.setCount(5000);
         functionWords = readFunctionWords();
@@ -41,11 +40,11 @@ public class Analyzer {
     }
 
     /**
-     * Counts how many times a candidate has mentioned word
+     * Counts how many times a candidate has mentioned "word"
      *
      * @param word A word to check
      */
-    public static int wordFrequency(String candidate, String word) {
+    public static int keyWordFrequency(String candidate, String word) {
         int freq = 0;
         for (Status s : tweets.get(candidate)) {
             freq += wordFreq(s.getText(), word, true);
@@ -54,22 +53,27 @@ public class Analyzer {
     }
 
     /**
-     * Counts how many times each candidate has a
-     * tweet containing word
+     * Counts how many times each candidate mentions "word" in all
+     * of their tweets
      *
      * @param word word to look for
      */
-    public static HashMap<String, Integer> wordFrequency(String word) {
+    public static HashMap<String, Integer> keyWordFrequency(String word) {
         HashMap<String, Integer> hashMap = new HashMap<>();
 
         for (String s : Candidates.getCandidates()) {
-            hashMap.put(s, wordFrequency(s, word));
+            hashMap.put(s, keyWordFrequency(s, word));
         }
         return hashMap;
     }
 
-    //todo write correct javadoc with hashmap meaning
-    public static HashMap<String, HashMap<String, Integer>> wordFrequency(ArrayList<String> words){
+    /**
+     * Counts how many times each candidate mentions each word in "words"
+     *
+     * @param words List of words to search for
+     * @return HashMap of each word to another hashMap of each candidate and that words frequency count
+     */
+    public static HashMap<String, HashMap<String, Integer>> keyWordFrequency(ArrayList<String> words){
         HashMap<String, HashMap<String, Integer>> hashMap = new HashMap<>();
 
         for (String cand : Candidates.getCandidates()) {
@@ -80,7 +84,7 @@ public class Analyzer {
                 }else {
                     temp = hashMap.get(word);
                 }
-                temp.put(cand, wordFrequency(cand, word));
+                temp.put(cand, keyWordFrequency(cand, word));
                 hashMap.put(word, temp);
             }
         }
@@ -100,8 +104,8 @@ public class Analyzer {
                 if (hashMap.get(otherCandidate) == null) {
                     hashMap.put(otherCandidate, 0);
                 }
-                hashMap.put(otherCandidate, hashMap.get(otherCandidate) + wordFrequency(candidate, otherCandidate)); // Called by name
-                hashMap.put(otherCandidate, hashMap.get(otherCandidate) + wordFrequency(candidate, Candidates.getUsernames().get(otherCandidate))); // Called by username
+                hashMap.put(otherCandidate, hashMap.get(otherCandidate) + keyWordFrequency(candidate, otherCandidate)); // Called by name
+                hashMap.put(otherCandidate, hashMap.get(otherCandidate) + keyWordFrequency(candidate, Candidates.getUsernames().get(otherCandidate))); // Called by username
             }
         }
         return hashMap;
@@ -137,6 +141,7 @@ public class Analyzer {
                 if (!cand1.equals(cand2)) {
                     for (Status tweet : candTweets){
                         hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), cand2, false));
+                        hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), Candidates.getUsernames().get(cand2), true));
                     }
                 }
             }
@@ -158,7 +163,7 @@ public class Analyzer {
         for (Status s : candTweets){
             String[] words = tweetSplitter(s.getText(), true, true);
             for (int i = 0; i < words.length; i++){
-                if (!words[i].equals("") && !functionWords.contains(words[i])) {
+                if (!words[i].equals("") && !functionWords.contains(words[i]) && !words[i].equals(candidate)) {
                     if (hashMap.containsKey(words[i])) {
                         hashMap.put(words[i], hashMap.get(words[i]) + 1);
                     } else {
