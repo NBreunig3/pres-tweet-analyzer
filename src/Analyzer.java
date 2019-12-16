@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * A tool to analyze data from presidential candidates Twitter accounts
  * @author Nathan Breunig
- * LAST MODIFIED 12/13/19
+ * LAST MODIFIED 12/16/19
  */
 public class Analyzer {
     public static Paging paging;
@@ -106,6 +106,11 @@ public class Analyzer {
                 }
                 hashMap.put(otherCandidate, hashMap.get(otherCandidate) + keyWordFrequency(candidate, otherCandidate)); // Called by name
                 hashMap.put(otherCandidate, hashMap.get(otherCandidate) + keyWordFrequency(candidate, Candidates.getUsernames().get(otherCandidate))); // Called by username
+                if (Candidates.getNicknames(otherCandidate) != null) {
+                    for (String nickname : Candidates.getNicknames(otherCandidate)) {
+                        hashMap.put(otherCandidate, hashMap.get(otherCandidate) + keyWordFrequency(candidate, nickname));
+                    }
+                }
             }
         }
         return hashMap;
@@ -142,6 +147,11 @@ public class Analyzer {
                     for (Status tweet : candTweets){
                         hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), cand2, false));
                         hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), Candidates.getUsernames().get(cand2), true));
+                        if (Candidates.getNicknames(cand2) != null) {
+                            for (String nickname : Candidates.getNicknames(cand2)) {
+                                hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), nickname, true));
+                            }
+                        }
                     }
                 }
             }
@@ -255,11 +265,20 @@ public class Analyzer {
     private static int wordFreq(String tweet, String toFind, boolean removeAts) {
         int freq = 0;
         toFind = toFind.toLowerCase();
-        String[] words = tweetSplitter(tweet, removeAts, true);
-
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].equals(toFind)) {
+        // Looking for multiple words
+        if (toFind.contains(" ")){
+            tweet = tweet.toLowerCase();
+            while (tweet.contains(toFind)){
                 freq++;
+                tweet = tweet.replaceFirst(toFind, "");
+            }
+        }else {
+            String[] words = tweetSplitter(tweet, removeAts, true);
+
+            for (int i = 0; i < words.length; i++) {
+                if (words[i].equals(toFind)) {
+                    freq++;
+                }
             }
         }
         return freq;

@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
 /**
  * A class to store information about presidential candidates
  * @author Nathan Breunig
- * LAST MODIFIED 10/3/19
+ * LAST MODIFIED 12/16/19
  */
 public abstract class Candidates {
     /**
@@ -14,30 +15,67 @@ public abstract class Candidates {
     public static HashMap<String, String> getUsernames(){
         HashMap<String, String> hashMap = new HashMap<>();
 
-        hashMap.put("Warren", "ewarren");
-        //hashMap.put("Williamson", "marwilliamson");
-        //hashMap.put("Bullock", "GovernorBullock");
-        //hashMap.put("Buttigieg", "PeteButtigieg");
-        //hashMap.put("Delaney", "JohnDelaney");
-        //hashMap.put("Hickenlooper", "Hickenlooper"); Dropped out of race
-        hashMap.put("Klobuchar", "amyklobuchar");
-        hashMap.put("ORourke", "BetoORourke");
-        //hashMap.put("Ryan", "TimRyan");
-        hashMap.put("Sanders", "BernieSanders");
-
         //hashMap.put("Bennet", "MichaelBennet");
         //hashMap.put("Gillibrand", "SenGillibrand");
-        hashMap.put("Castro", "JulianCastro");
-        hashMap.put("Booker", "CoryBooker");
-        hashMap.put("Biden", "JoeBiden");
-        hashMap.put("Harris", "KamalaHarris");
-        hashMap.put("Yang", "AndrewYang");
-        hashMap.put("Gabbard", "TulsiGabbard");
-        //hashMap.put("Inslee", "JayInslee"); Dropped out of race
+        //hashMap.put("Williamson", "marwilliamson");
+        //hashMap.put("Bullock", "GovernorBullock");
+        //hashMap.put("Delaney", "JohnDelaney");
+        //hashMap.put("Hickenlooper", "Hickenlooper");
+        //hashMap.put("Ryan", "TimRyan");
+        //hashMap.put("Inslee", "JayInslee");
         //hashMap.put("de Blasio", "BilldeBlasio");
+        //hashMap.put("Booker", "CoryBooker");
+        //hashMap.put("Castro", "JulianCastro");
+        //hashMap.put("Gabbard", "TulsiGabbard");
+        //hashMap.put("Harris", "KamalaHarris");
+        //hashMap.put("ORourke", "BetoORourke");
 
+        hashMap.put("Klobuchar", "amyklobuchar");
+        hashMap.put("Buttigieg", "PeteButtigieg");
+        hashMap.put("Sanders", "BernieSanders");
+        hashMap.put("Warren", "ewarren");
+        hashMap.put("Biden", "JoeBiden");
+        hashMap.put("Yang", "AndrewYang");
+        hashMap.put("Steyer", "TomSteyer");
         hashMap.put("Trump", "realDonaldTrump");
         return hashMap;
+    }
+
+    /**
+     * Gets a list of nicknames for a specific candidate
+     * @param candidate candidate to get nicknames for
+     * @return List of nicknames
+     */
+    public static ArrayList<String> getNicknames(String candidate){
+        HashMap<String, ArrayList<String>> hashMap = new HashMap<>();
+
+        // Warren
+        hashMap.put("Warren", new ArrayList<>());
+        hashMap.get("Warren").add("pocahontas");
+        hashMap.get("Warren").add("Goofy Elizabeth Warren");
+        hashMap.get("Warren").add("The Indian");
+        hashMap.get("Warren").add("Uber Left Elizabeth Warren");
+
+        // Biden
+        hashMap.put("Biden", new ArrayList<>());
+        hashMap.get("Biden").add("quid pro joe");
+        hashMap.get("Biden").add("sleepy joe");
+
+        // Buttigieg
+        hashMap.put("Buttigieg", new ArrayList<>());
+        hashMap.get("Buttigieg").add("Boot-Edge-Edge");
+
+        // Sanders
+        hashMap.put("Sanders", new ArrayList<>());
+        hashMap.get("Sanders").add("Crazy Bernie");
+        hashMap.get("Sanders").add("The Nutty Professor");
+
+        // Steyer
+        hashMap.put("Steyer", new ArrayList<>());
+        hashMap.get("Steyer").add("Wacky Tom Steyer");
+        hashMap.get("Steyer").add("Weirdo Tom Steyer");
+
+        return hashMap.get(candidate);
     }
 
     /**

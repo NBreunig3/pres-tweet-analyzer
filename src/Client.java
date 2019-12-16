@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.HashMap;
 /**
  * @author Nathan Breunig
- * @version 1.2.3
- * LAST MODIFIED 12/11/19
+ * @version 1.2.5
+ * LAST MODIFIED 12/16/19
  */
 public class Client {
     private static HashMap<String, HashMap<String, Integer>> countAllWordsMap;
@@ -32,18 +32,17 @@ public class Client {
             //Run Analyzer
             Analyzer.setup();
             countAllWordsMap = Analyzer.countAllWords();
-            System.out.println("Done");
+            System.out.println("Word Count: Done!");
             mentionOthersMap = Analyzer.mentionOthersFrequency();
-            System.out.println("Done");
-            wordFreqMap = Analyzer.wordFrequency(Analyzer.getWordFreqWords());
-            System.out.println("Done");
+            System.out.println("Mentions of Others Frequency: Done!");
+            wordFreqMap = Analyzer.keyWordFrequency(Analyzer.getWordFreqWords());
+            System.out.println("Key Word Frequency: Done!");
             totalMentionsMap = Analyzer.totalMentions();
-            System.out.println("Done");
+            System.out.println("Total Mentions: Done!");
 
             //Save Report
             File path = fileChooser.getSelectedFile();
-            File mainDir = createSaveDir(path); //Maybe not needed? Just pass path?
-            saveReport(mainDir);
+            saveReport(path);
         }else {
             System.exit(0);
         }
@@ -55,36 +54,17 @@ public class Client {
      * @param mainDir Where to save the generated report
      */
     private static void saveReport(File mainDir) {
-        File plainTextDir = new File(mainDir.getPath() + "\\Plain Text\\");
-        File csvDir = new File(mainDir.getPath() + "\\CSV\\");
+        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        File folder = new File(mainDir.getPath() + "\\Report_" + dateFormat.format(new Date()) + "\\");
+        folder.mkdir();
 
         //Count All Words
-        Output.saveCSVReport(new File(csvDir.getPath() + "\\Word Count\\WordCount.csv"), "CountAllWords", countAllWordsMap, null);
+        Output.saveCSVReport(new File(folder.getPath() + "\\Word Count.csv"), "CountAllWords", countAllWordsMap, null);
         //Mentions of others
-        Output.saveCSVReport(new File(csvDir.getPath() + "\\Mention of Others Frequency\\mentionOfOthersFreq.csv"), "MentionOthersFreq", mentionOthersMap, null);
+        Output.saveCSVReport(new File(folder.getPath() + "\\Mention of Others Frequency.csv"), "MentionOthersFreq", mentionOthersMap, null);
         //Word Frequency
-        Output.saveCSVReport(new File(csvDir.getPath() + "\\Word Frequency\\WordFrequency.csv"), "WordFreq", wordFreqMap, null);
+        Output.saveCSVReport(new File(folder.getPath() + "\\Key Word Frequency.csv"), "WordFreq", wordFreqMap, null);
         //Total Mentions
-        Output.saveCSVReport(new File(csvDir.getPath() + "\\Total Mentions\\totalMentions.csv"), "TotalMentions", null, totalMentionsMap);
-    }
-
-    private static File createSaveDir(File path){
-        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-
-        //Create Directories
-        //Create Main Directory
-        File mainDir = new File(path.getPath() + "\\Report_" + dateFormat.format(new Date()));
-        mainDir.mkdir();
-        //Create CSV Directory
-        File csvDir = new File(mainDir.getPath() + "\\CSV");
-        csvDir.mkdir();
-
-        //Create Sub Directories
-        new File(csvDir.getPath() + "\\Word Count").mkdir();
-        new File(csvDir.getPath() + "\\Mention of Others Frequency").mkdir();
-        new File(csvDir.getPath() + "\\Word Frequency").mkdir();
-        new File(csvDir.getPath() + "\\Total Mentions").mkdir();
-
-        return mainDir;
+        Output.saveCSVReport(new File(folder.getPath() + "\\Total Mentions.csv"), "TotalMentions", null, totalMentionsMap);
     }
 }
