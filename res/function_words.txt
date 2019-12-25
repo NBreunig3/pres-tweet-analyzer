@@ -22,7 +22,7 @@ amongst 19
 amoungst 20
 an 21
 and 22
-!another 23
+another 23
 any 24
 anyhow 25
 anyone 26
@@ -49,8 +49,8 @@ beyond 46
 both 47
 but 48
 by 49
-!can 50
-!cannot 51
+can 50
+cannot 51
 could 52
 dare 53
 despite 54
@@ -64,8 +64,8 @@ each 61
 eg 62
 either 63
 else 64
-!elsewhere 65
-!enough 66
+elsewhere 65
+enough 66
 etc 67
 even 68
 ever 69
@@ -82,6 +82,7 @@ formerly 79
 from 80
 further 81
 furthermore 82
+get
 had 83
 has 84
 have 85
@@ -116,15 +117,18 @@ into 113
 is 114
 it 115
 its 116
+im
 itself 117
 last 118
 latter 119
 latterly 120
 least 121
 less 122
+like 122
 lot 123
 lots 124
 many 125
+make
 may 126
 me 127
 meanwhile 128
@@ -198,6 +202,7 @@ still 195
 such 196
 than 197
 that 198
+thats
 the 199
 their 200
 theirs 201
@@ -279,3 +284,6 @@ yours 275
 !yourselves 277
 rt 288
 just 289
+thank 290
+thanks 291
+president
