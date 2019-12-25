@@ -61,6 +61,8 @@ public class Output {
                 barChart.addSeries("Words", wordList, freqList);
                 BitmapEncoder.saveBitmap(barChart, folder.getPath() + "\\" + candidate + " Word Count Chart", BitmapEncoder.BitmapFormat.PNG);
             }
+            br.flush();
+            br.close();
 
             br = new BufferedWriter(new FileWriter(folder.getPath() + "\\Mentions of Others Frequency.csv"));
             // Mention Others Frequency
@@ -109,6 +111,8 @@ public class Output {
                 chart.addSeries(candidate.toUpperCase(), candidateNames, freqs);
             }
             BitmapEncoder.saveBitmap(chart, folder.getPath() + "\\Mention Of Others Chart", BitmapEncoder.BitmapFormat.PNG);
+            br.flush();
+            br.close();
 
             br = new BufferedWriter(new FileWriter(folder.getPath() + "\\Total Mentions.csv"));
             // Total Mentions
@@ -129,6 +133,8 @@ public class Output {
             pieChart.getStyler().setLegendVisible(true);
             pieChart.getStyler().setSeriesColors(new Color[]{Color.RED, Color.BLACK, Color.GREEN, Color.MAGENTA, Color.cyan, Color.PINK, Color.yellow, Color.GRAY});
             BitmapEncoder.saveBitmap(pieChart, folder.getPath() + "\\Total Mentions Chart", BitmapEncoder.BitmapFormat.PNG);
+            br.flush();
+            br.close();
 
             br = new BufferedWriter(new FileWriter(folder.getPath() + "\\Key Word Frequency.csv"));
             // Key Word Frequency
