@@ -1,19 +1,25 @@
+import org.knowm.xchart.*;
+import org.knowm.xchart.style.Styler;
+import org.knowm.xchart.style.Theme;
 import twitter4j.*;
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
+import java.util.List;
+
 /**
  * @author Nathan Breunig
- * @version 1.2.5
- * LAST MODIFIED 12/16/19
+ * @version 1.3
+ * LAST MODIFIED 12/25/19
  */
 public class Client {
     private static HashMap<String, HashMap<String, Integer>> countAllWordsMap;
     private static HashMap<String, HashMap<String, Integer>> mentionOthersMap;
-    private static HashMap<String, HashMap<String, Integer>> wordFreqMap;
+    private static HashMap<String, HashMap<String, Integer>> keyWordFreqMap;
     private static HashMap<String, Integer> totalMentionsMap;
 
     /**
@@ -35,7 +41,7 @@ public class Client {
             System.out.println("Word Count: Done!");
             mentionOthersMap = Analyzer.mentionOthersFrequency();
             System.out.println("Mentions of Others Frequency: Done!");
-            wordFreqMap = Analyzer.keyWordFrequency(Analyzer.getWordFreqWords());
+            keyWordFreqMap = Analyzer.keyWordFrequency(Analyzer.getKeyWordFreqWords());
             System.out.println("Key Word Frequency: Done!");
             totalMentionsMap = Analyzer.totalMentions();
             System.out.println("Total Mentions: Done!");
@@ -58,13 +64,6 @@ public class Client {
         File folder = new File(mainDir.getPath() + "\\Report_" + dateFormat.format(new Date()) + "\\");
         folder.mkdir();
 
-        //Count All Words
-        Output.saveCSVReport(new File(folder.getPath() + "\\Word Count.csv"), "CountAllWords", countAllWordsMap, null);
-        //Mentions of others
-        Output.saveCSVReport(new File(folder.getPath() + "\\Mention of Others Frequency.csv"), "MentionOthersFreq", mentionOthersMap, null);
-        //Word Frequency
-        Output.saveCSVReport(new File(folder.getPath() + "\\Key Word Frequency.csv"), "WordFreq", wordFreqMap, null);
-        //Total Mentions
-        Output.saveCSVReport(new File(folder.getPath() + "\\Total Mentions.csv"), "TotalMentions", null, totalMentionsMap);
+        Output.saveReport(folder, countAllWordsMap, mentionOthersMap, keyWordFreqMap, totalMentionsMap);
     }
 }

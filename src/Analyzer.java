@@ -9,12 +9,11 @@ import java.util.*;
 /**
  * A tool to analyze data from presidential candidates Twitter accounts
  * @author Nathan Breunig
- * LAST MODIFIED 12/16/19
+ * LAST MODIFIED 12/25/19
  */
 public class Analyzer {
     public static Paging paging;
     private static HashSet<String> functionWords;
-    private static HashSet<Character> letters;
     private static HashMap<String, List<Status>> tweets;
 
     /**
@@ -26,7 +25,6 @@ public class Analyzer {
         paging = new Paging();
         paging.setCount(5000);
         functionWords = readFunctionWords();
-        letters = getLetters();
         tweets = new HashMap<>();
         // Get all candidates tweets
         for (String candidate : Candidates.getCandidates()){
@@ -50,21 +48,6 @@ public class Analyzer {
             freq += wordFreq(s.getText(), word, true);
         }
         return freq;
-    }
-
-    /**
-     * Counts how many times each candidate mentions "word" in all
-     * of their tweets
-     *
-     * @param word word to look for
-     */
-    public static HashMap<String, Integer> keyWordFrequency(String word) {
-        HashMap<String, Integer> hashMap = new HashMap<>();
-
-        for (String s : Candidates.getCandidates()) {
-            hashMap.put(s, keyWordFrequency(s, word));
-        }
-        return hashMap;
     }
 
     /**
@@ -145,8 +128,8 @@ public class Analyzer {
             for (String cand2 : Candidates.getCandidates()) {
                 if (!cand1.equals(cand2)) {
                     for (Status tweet : candTweets){
-                        hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), cand2, false));
-                        hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), Candidates.getUsernames().get(cand2), true));
+                        hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), cand2, true));
+                        hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), Candidates.getUsernames().get(cand2), false));
                         if (Candidates.getNicknames(cand2) != null) {
                             for (String nickname : Candidates.getNicknames(cand2)) {
                                 hashMap.put(cand2, hashMap.get(cand2) + wordFreq(tweet.getText(), nickname, true));
@@ -173,7 +156,7 @@ public class Analyzer {
         for (Status s : candTweets){
             String[] words = tweetSplitter(s.getText(), true, true);
             for (int i = 0; i < words.length; i++){
-                if (!words[i].equals("") && !functionWords.contains(words[i]) && !words[i].equals(candidate)) {
+                if (!words[i].equals("") && !functionWords.contains(words[i]) && !words[i].equals(candidate.toLowerCase())) {
                     if (hashMap.containsKey(words[i])) {
                         hashMap.put(words[i], hashMap.get(words[i]) + 1);
                     } else {
@@ -203,10 +186,10 @@ public class Analyzer {
     /**
      * Private helper method to split each tweet into n array of words
      * @param tweet text to split
-     * @param removeAts if it should remove @mentions to other users
+     * @param removeUsername if it should remove @mentions to other users
      * @return String array
      */
-    private static String[] tweetSplitter(String tweet, boolean removeAts, boolean removeHashtags){
+    private static String[] tweetSplitter(String tweet, boolean removeUsername, boolean removeHashtags){
         tweet = tweet.toLowerCase();
 
         String[] words = tweet.split("\\s+");
@@ -214,42 +197,25 @@ public class Analyzer {
         //Remove links and @'s
         for (int i = 0; i < words.length; i++) {
             words[i] = words[i].trim();
-            if (removeAts) {
-                if (words[i].substring(0, 1).equals("@") || words[i].contains("http") ) {
-                    words[i] = "";
+            if (words[i].length() > 1) {
+                // Remove @ if necessary
+                if (words[i].contains("@")) {
+                    if (removeUsername) {
+                        words[i] = "";
+                    }
+                }
+                // Remove # if necessary
+                if (words[i].contains("#")) {
+                    if (removeHashtags) {
+                        words[i] = "";
+                    }
                 }
             }
-            if (removeHashtags && !words[i].equals("")){
-                if (words[i].substring(0,1).equals("#")){
-                    words[i] = "";
-                }
-            }
-            words[i] = words[i].replace(".", "");
-            words[i] = words[i].replace("!", "");
-            words[i] = words[i].replace(",", "");
-            words[i] = words[i].replace(";", "");
-            words[i] = words[i].replace("\"", "");
-            words[i] = words[i].replace("'", "");
-            words[i] = words[i].replace("(", "");
-            words[i] = words[i].replace(")", "");
-            words[i] = words[i].replace("/", "");
-            words[i] = words[i].replace("\\", "");
-            words[i] = words[i].replace(":", "");
-            words[i] = words[i].replace("&", "");
-            if (words[i].length() == 1 && words[i].contains("-")){
-                words[i] = words[i].replace("-", "");
-            }
-
-            //Removes items with no letters
-            boolean hasLetters = false;
-            for (int j = 0; j < words[i].length(); j++){
-                if (letters.contains(words[i].charAt(j))){
-                    hasLetters = true;
-                }
-            }
-            if (!hasLetters){
+            // Remove links
+            if (words[i].contains("http")){
                 words[i] = "";
             }
+            words[i] = words[i].replaceAll("[^A-Za-z0-9]", "");
         }
         return words;
     }
@@ -259,10 +225,10 @@ public class Analyzer {
      * and determine if any text matches toFind
      * @param tweet text to search through
      * @param toFind text to find
-     * @param removeAts if @blah text should be removed from the tweet
+     * @param removeUsername if @blah text should be removed from the tweet
      * @return frequency that toFind was found in tweet
      */
-    private static int wordFreq(String tweet, String toFind, boolean removeAts) {
+    private static int wordFreq(String tweet, String toFind, boolean removeUsername) {
         int freq = 0;
         toFind = toFind.toLowerCase();
         // Looking for multiple words
@@ -273,7 +239,7 @@ public class Analyzer {
                 tweet = tweet.replaceFirst(toFind, "");
             }
         }else {
-            String[] words = tweetSplitter(tweet, removeAts, true);
+            String[] words = tweetSplitter(tweet, removeUsername, true);
 
             for (int i = 0; i < words.length; i++) {
                 if (words[i].equals(toFind)) {
@@ -305,7 +271,11 @@ public class Analyzer {
             String line = br.readLine();
             while (line != null){
                 if (!line.contains("!")){
-                    hashSet.add(line.substring(0, line.indexOf(" ")));
+                    if (line.contains(" ")) {
+                        hashSet.add(line.substring(0, line.indexOf(" ")));
+                    }else {
+                        hashSet.add(line);
+                    }
                 }
                 line = br.readLine();
             }
@@ -315,21 +285,8 @@ public class Analyzer {
         return hashSet;
     }
 
-    /**
-     * Gets a hash set with all letters
-     * @return Hash Set
-     */
-    private static HashSet<Character> getLetters(){
-        HashSet<Character> hashSet = new HashSet<>();
-
-        for (char c = 'a'; c <= 'z'; c++){
-            hashSet.add(c);
-        }
-        return hashSet;
-    }
-
     //TODO javadoc
-    public static ArrayList<String> getWordFreqWords(){
+    public static ArrayList<String> getKeyWordFreqWords(){
         ArrayList<String> words = new ArrayList<>();
         words.add("We");
         words.add("I");
@@ -338,7 +295,6 @@ public class Analyzer {
         words.add("Free");
         words.add("Climate");
         words.add("Impeachment");
-        words.add("Ukraine");
         words.add("War");
         words.add("Health care");
         words.add("Americans");
