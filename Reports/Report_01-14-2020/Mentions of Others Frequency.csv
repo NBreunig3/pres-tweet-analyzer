@@ -1,0 +1,10 @@
+candidate,candidate-mentions,candidate-mentions,candidate-mentions,candidate-mentions,candidate-mentions,candidate-mentions,candidate-mentions,candidate-mentions,
+Buttigieg,Trump-13,Warren-0,Bloomberg-0,Biden-0,Steyer-0,Yang-0,Sanders-0,Klobuchar-0
+Warren,Trump-11,Buttigieg-0,Bloomberg-0,Biden-0,Steyer-0,Yang-0,Sanders-0,Klobuchar-0
+Bloomberg,Trump-44,Buttigieg-0,Warren-0,Biden-0,Steyer-0,Yang-0,Sanders-0,Klobuchar-0
+Biden,Trump-57,Buttigieg-0,Warren-0,Bloomberg-0,Steyer-0,Yang-0,Sanders-0,Klobuchar-0
+Steyer,Trump-26,Buttigieg-1,Warren-1,Bloomberg-0,Biden-0,Yang-0,Sanders-0,Klobuchar-0
+Yang,Trump-2,Buttigieg-0,Warren-0,Bloomberg-0,Biden-0,Steyer-0,Sanders-0,Klobuchar-0
+Sanders,Trump-24,Biden-1,Buttigieg-0,Warren-0,Bloomberg-0,Steyer-0,Yang-0,Klobuchar-0
+Klobuchar,Trump-24,Buttigieg-0,Warren-0,Bloomberg-0,Biden-0,Steyer-0,Yang-0,Sanders-0
+Trump,Sanders-3,Biden-2,Warren-1,Bloomberg-1,Buttigieg-0,Steyer-0,Yang-0,Klobuchar-0
