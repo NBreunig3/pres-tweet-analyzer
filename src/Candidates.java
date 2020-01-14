@@ -5,7 +5,7 @@ import java.util.Set;
 /**
  * A class to store information about presidential candidates
  * @author Nathan Breunig
- * LAST MODIFIED 12/16/19
+ * LAST MODIFIED 1/14/20
  */
 public abstract class Candidates {
     /**
@@ -38,6 +38,7 @@ public abstract class Candidates {
         hashMap.put("Yang", "AndrewYang");
         hashMap.put("Steyer", "TomSteyer");
         hashMap.put("Trump", "realDonaldTrump");
+        hashMap.put("Bloomberg", "MikeBloomberg");
         return hashMap;
     }
 

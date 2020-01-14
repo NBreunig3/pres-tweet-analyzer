@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * A tool to analyze data from presidential candidates Twitter accounts
  * @author Nathan Breunig
- * LAST MODIFIED 12/25/19
+ * LAST MODIFIED 1/14/20
  */
 public class Analyzer {
     public static Paging paging;
@@ -285,7 +285,10 @@ public class Analyzer {
         return hashSet;
     }
 
-    //TODO javadoc
+    /**
+     * A list of words to use for the Key Word Frequency analysis
+     * @return a list of key words
+     */
     public static ArrayList<String> getKeyWordFreqWords(){
         ArrayList<String> words = new ArrayList<>();
         words.add("We");
@@ -298,6 +301,7 @@ public class Analyzer {
         words.add("War");
         words.add("Health care");
         words.add("Americans");
+        words.add("Iran");
         return words;
     }
 }
