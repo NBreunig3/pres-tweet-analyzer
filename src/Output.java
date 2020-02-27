@@ -15,7 +15,7 @@ import java.util.List;
  * A class to either print out resulting data or save data to file from Analyzer
  *
  * @author Nathan Breunig
- * LAST MODIFIED 12/25/19
+ * LAST MODIFIED 2/27/20
  */
 public class Output {
     private static HashMap<String, Integer> tempHashMap = new HashMap<>(); //So the freqComparator works
@@ -53,7 +53,7 @@ public class Output {
                 barChart.setXAxisTitle("Word");
                 barChart.setYAxisTitle("Word Frequency");
                 barChart.getStyler().setXAxisMin(1.0);
-                List<String> wordList = Output.sortMap(countAllWordsMap.get(candidate)).subList(0, 10);
+                List<String> wordList = Output.sortMap(countAllWordsMap.get(candidate)).subList(0, Math.min(10, countAllWordsMap.get(candidate).size()));
                 ArrayList<Integer> freqList = new ArrayList<>();
                 for (String word : wordList) {
                     freqList.add(countAllWordsMap.get(candidate).get(word));
@@ -162,9 +162,9 @@ public class Output {
             }
             // Generate Chart
             CategoryChart wordFreqChart = new CategoryChart(1400, 800);
-            wordFreqChart.setTitle("Candidate Mention of Others Frequency");
-            wordFreqChart.setXAxisTitle("Candidate");
-            wordFreqChart.setYAxisTitle("Mention of other candidate frequency");
+            wordFreqChart.setTitle("Key Word's Frequency");
+            wordFreqChart.setXAxisTitle("Key Word");
+            wordFreqChart.setYAxisTitle("Number of mentions");
             wordFreqChart.getStyler().setLegendVisible(true);
             wordFreqChart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
             wordFreqChart.getStyler().setXAxisMin(0.0);
