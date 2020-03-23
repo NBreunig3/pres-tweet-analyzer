@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * A tool to analyze data from presidential candidates Twitter accounts
  * @author Nathan Breunig
- * LAST MODIFIED 2/11/20
+ * LAST MODIFIED 3/23/20
  */
 public class Analyzer {
     public static Paging paging;
@@ -293,13 +293,12 @@ public class Analyzer {
         ArrayList<String> words = new ArrayList<>();
         words.add("We");
         words.add("I");
-        words.add("Win");
-        words.add("Free");
+        words.add("China");
         words.add("Climate");
-        words.add("War");
-        words.add("Health care");
-        words.add("Americans");
         words.add("Coronavirus");
+        words.add("Health care");
+        words.add("Pandemic");
+        words.add("Crisis");
         return words;
     }
 }
