@@ -1,4 +1,11 @@
 # pres-tweet-analyzer
+<img src="https://img.shields.io/badge/maintained%3F-yes-yellow"></img>
+[![GitHub license](https://img.shields.io/github/license/NBreunig3/pres-tweet-analyzer)](https://github.com/NBreunig3/pres-tweet-analyzer/blob/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/NBreunig3/pres-tweet-analyzer)](https://github.com/NBreunig3/pres-tweet-analyzer/issues)
+[![GitHub stars](https://img.shields.io/github/stars/NBreunig3/pres-tweet-analyzer)](https://github.com/NBreunig3/pres-tweet-analyzer/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/NBreunig3/pres-tweet-analyzer)](https://github.com/NBreunig3/pres-tweet-analyzer/network)
+[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FNBreunig3)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FNBreunig3%2Fpres-tweet-analyzer)
+<br/>
 A tool used to analyze the 2020 presidential candidate's Twitter accounts in various ways. <br/>
 By Nathan Breunig.
 
