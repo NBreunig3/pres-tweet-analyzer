@@ -54,7 +54,13 @@ This method looks at each candidate's individual Twitter account and determines 
 This method will look at each candidates Twitter account and determine how many times that candidate has mentioned any other candidate in their tweets. <br/> 
 
 <i>\*Reports below were generated on 2/27/20 (left) and 3/23/20 (right). See the "Reports" folder for more information.\*</i>
-<img src="https://i.imgur.com/BkcSBsA.png" width="40%"><img src="https://i.imgur.com/lw7i6pT.png" width="40%">
+<img src="https://i.imgur.com/BkcSBsA.png" width="50%"><img src="https://i.imgur.com/lw7i6pT.png" width="50%">
 
 
 ### To view analysis and CSV files, click on the "Reports" folder!
+
+
+## Cloning the project?
+In order to use this project you will need Twitter API keys. You can aquire them at <a href="developer.twitter.com">developer.twitter.com</a>. Then just paste the keys in the <i>res/twitter4j.properties</i> file.
+
+
