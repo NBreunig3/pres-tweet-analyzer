@@ -58,9 +58,9 @@ This method will look at each candidates Twitter account and determine how many 
 
 
 ### To view analysis and CSV files, click on the "Reports" folder!
-
+<br/>
 
 ## Cloning the project?
-In order to use this project you will need Twitter API keys. You can aquire them at <a href="developer.twitter.com">developer.twitter.com</a>. Then just paste the keys in the <i>res/twitter4j.properties</i> file.
+In order to use this project you will need Twitter API keys. You can aquire them at <a href="https://developer.twitter.com/en">developer.twitter.com</a>. Then just paste the keys in the <i>res/twitter4j.properties</i> file.
 
 
