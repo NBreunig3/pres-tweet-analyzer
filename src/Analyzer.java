@@ -264,7 +264,7 @@ public class Analyzer {
      * @return HashSet of function words
      */
     private static HashSet<String> readFunctionWords(){
-        File file = new File("res\\function_words.txt");
+        File file = new File("res/function_words.txt");
         HashSet<String> hashSet = new HashSet<>();
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));

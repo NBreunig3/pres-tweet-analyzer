@@ -9,7 +9,7 @@ import java.util.Properties;
 /**
  * A class to set up the Twitter4j API
  * @author Nathan Breunig
- * LAST MODIFIED 7/31/19
+ * LAST MODIFIED 12/4/19
  */
 public abstract class Setup {
 
@@ -19,7 +19,7 @@ public abstract class Setup {
      */
     public static Twitter setup(){
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setTweetModeExtended(true);
+        cb.setTweetModeExtended(true); // To get full tweet
         try {
             FileInputStream fileInputStream = new FileInputStream("res\\twitter4j.properties");
             Properties properties = new Properties();
@@ -36,6 +36,7 @@ public abstract class Setup {
             cb.setOAuthConsumerSecret(consumerSecret);
             cb.setOAuthAccessToken(accessToken);
             cb.setOAuthAccessTokenSecret(accessTokenSecret);
+            cb.setTweetModeExtended(true);
         }catch (IOException e){
             System.out.println(e.getMessage());
         }

@@ -2,7 +2,6 @@ import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.PieChart;
 import org.knowm.xchart.style.Styler;
-import sun.security.tools.keytool.CertAndKeyGen;
 
 import java.awt.*;
 import java.io.*;
@@ -15,7 +14,7 @@ import java.util.List;
  * A class to either print out resulting data or save data to file from Analyzer
  *
  * @author Nathan Breunig
- * LAST MODIFIED 2/27/20
+ * LAST MODIFIED 4/13/20
  */
 public class Output {
     private static HashMap<String, Integer> tempHashMap = new HashMap<>(); //So the freqComparator works
@@ -131,7 +130,7 @@ public class Output {
             }
             pieChart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
             pieChart.getStyler().setLegendVisible(true);
-            pieChart.getStyler().setSeriesColors(new Color[]{Color.RED, Color.BLACK, Color.GREEN, Color.MAGENTA, Color.cyan, Color.PINK, Color.yellow, Color.GRAY});
+            pieChart.getStyler().setSeriesColors(new Color[]{Color.RED, Color.MAGENTA, Color.GREEN, Color.PINK, Color.yellow, Color.GRAY});
             BitmapEncoder.saveBitmap(pieChart, folder.getPath() + "\\Total Mentions Chart", BitmapEncoder.BitmapFormat.PNG);
             br.flush();
             br.close();
@@ -156,7 +155,7 @@ public class Output {
                         br.write(keyWordFreqMap.get(word).get(cand) + ",");
                     } else {
                         br.write(keyWordFreqMap.get(word).get(cand));
-                        br.newLine();
+                        br.flush(); // todo debug
                     }
                 }
             }
@@ -191,7 +190,7 @@ public class Output {
         for (String s : set) {
             list.add(s);
         }
-        /**
+        /*
          * Comparator used to sort a HashMap
          *
          * @param s1 first item

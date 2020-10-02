@@ -5,7 +5,7 @@ import java.util.Set;
 /**
  * A class to store information about presidential candidates
  * @author Nathan Breunig
- * LAST MODIFIED 3/23/20
+ * LAST MODIFIED 4/13/20
  */
 public abstract class Candidates {
     /**
@@ -35,8 +35,8 @@ public abstract class Candidates {
         //hashMap.put("Klobuchar", "amyklobuchar");
         //hashMap.put("Buttigieg", "PeteButtigieg");
         //hashMap.put("Warren", "ewarren");
+        //hashMap.put("Sanders", "BernieSanders");
 
-        hashMap.put("Sanders", "BernieSanders");
         hashMap.put("Biden", "JoeBiden");
         hashMap.put("Trump", "realDonaldTrump");
 
@@ -50,7 +50,7 @@ public abstract class Candidates {
      */
     public static ArrayList<String> getNicknames(String candidate){
         HashMap<String, ArrayList<String>> hashMap = new HashMap<>();
-
+        // Nicknames from Wikipedia
         // Warren
         hashMap.put("Warren", new ArrayList<>());
         hashMap.get("Warren").add("pocahontas");

@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author Nathan Breunig
- * @version 1.3
+ * @version 1.3.1
  * LAST MODIFIED 12/25/19
  */
 public class Client {
