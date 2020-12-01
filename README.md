@@ -1,5 +1,4 @@
 # pres-tweet-analyzer
-<img src="https://img.shields.io/badge/maintained%3F-yes-yellow"></img>
 [![GitHub license](https://img.shields.io/github/license/NBreunig3/pres-tweet-analyzer)](https://github.com/NBreunig3/pres-tweet-analyzer/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/NBreunig3/pres-tweet-analyzer)](https://github.com/NBreunig3/pres-tweet-analyzer/issues)
 [![GitHub stars](https://img.shields.io/github/stars/NBreunig3/pres-tweet-analyzer)](https://github.com/NBreunig3/pres-tweet-analyzer/stargazers)
@@ -59,8 +58,3 @@ This method will look at each candidates Twitter account and determine how many 
 
 ### To view analysis and CSV files, click on the "Reports" folder!
 <br/>
-
-## Cloning the project?
-In order to use this project you will need Twitter API keys. You can aquire them at <a href="https://developer.twitter.com/en">developer.twitter.com</a>. Then just paste the keys in the <i>res/twitter4j.properties</i> file.
-
-

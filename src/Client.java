@@ -1,20 +1,14 @@
-import org.knowm.xchart.*;
-import org.knowm.xchart.style.Styler;
-import org.knowm.xchart.style.Theme;
-import twitter4j.*;
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.List;
+import twitter4j.*;
 
 /**
  * @author Nathan Breunig
- * @version 1.3.1
- * LAST MODIFIED 12/25/19
+ * @version 1.4
+ * LAST MODIFIED 10/1/20
  */
 public class Client {
     private static HashMap<String, HashMap<String, Integer>> countAllWordsMap;
@@ -61,8 +55,8 @@ public class Client {
      */
     private static void saveReport(File mainDir) {
         DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-        File folder = new File(mainDir.getPath() + "\\Report_" + dateFormat.format(new Date()) + "\\");
-        folder.mkdir();
+        File folder = new File(new File(mainDir.getPath(), "Report_" + dateFormat.format(new Date())).getPath());
+        folder.mkdirs();
 
         Output.saveReport(folder, countAllWordsMap, mentionOthersMap, keyWordFreqMap, totalMentionsMap);
     }

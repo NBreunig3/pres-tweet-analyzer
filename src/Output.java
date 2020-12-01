@@ -5,23 +5,25 @@ import org.knowm.xchart.style.Styler;
 
 import java.awt.*;
 import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
 /**
- * A class to either print out resulting data or save data to file from Analyzer
+ * A class to output the results of the Analyzer
  *
  * @author Nathan Breunig
- * LAST MODIFIED 4/13/20
+ * LAST MODIFIED 10/1/20
  */
 public class Output {
     private static HashMap<String, Integer> tempHashMap = new HashMap<>(); //So the freqComparator works
 
     public static void saveReport(File folder, HashMap<String, HashMap<String, Integer>> countAllWordsMap, HashMap<String, HashMap<String, Integer>> mentionsOthersMao, HashMap<String, HashMap<String, Integer>> keyWordFreqMap, HashMap<String, Integer> totalMentionsMap) {
+        final File chartFolder = new File(folder.getPath(), "Output");
+        final File rawDataFolder = new File(folder.getPath(), "Raw Data");
+        chartFolder.mkdirs();
+        rawDataFolder.mkdirs();
         try {
-            BufferedWriter br = new BufferedWriter(new FileWriter(folder.getPath() + "\\Word Count.csv"));
+            BufferedWriter br = new BufferedWriter(new FileWriter(new File(rawDataFolder.getPath(), "Word Count.csv")));
             // Count All Words
             br.write("candidate,");
             for (int i = 1; i <= 50; i++) {
@@ -58,12 +60,12 @@ public class Output {
                     freqList.add(countAllWordsMap.get(candidate).get(word));
                 }
                 barChart.addSeries("Words", wordList, freqList);
-                BitmapEncoder.saveBitmap(barChart, folder.getPath() + "\\" + candidate + " Word Count Chart", BitmapEncoder.BitmapFormat.PNG);
+                BitmapEncoder.saveBitmap(barChart, new File(chartFolder.getPath(), candidate + " Word Count").getPath(), BitmapEncoder.BitmapFormat.PNG);
             }
             br.flush();
             br.close();
 
-            br = new BufferedWriter(new FileWriter(folder.getPath() + "\\Mentions of Others Frequency.csv"));
+            br = new BufferedWriter(new FileWriter(new File(rawDataFolder.getPath(), "Mentions of Others Frequency.csv")));
             // Mention Others Frequency
             br.write("candidate,");
             for (int i = 0; i < Candidates.getCandidates().size() - 1; i++) {
@@ -109,11 +111,11 @@ public class Output {
                 ArrayList<String> candidateNames = new ArrayList<>(Candidates.getCandidates());
                 chart.addSeries(candidate.toUpperCase(), candidateNames, freqs);
             }
-            BitmapEncoder.saveBitmap(chart, folder.getPath() + "\\Mention Of Others Chart", BitmapEncoder.BitmapFormat.PNG);
+            BitmapEncoder.saveBitmap(chart, new File(chartFolder.getPath(), "Mention Of Others Chart").getPath(), BitmapEncoder.BitmapFormat.PNG);
             br.flush();
             br.close();
 
-            br = new BufferedWriter(new FileWriter(folder.getPath() + "\\Total Mentions.csv"));
+            br = new BufferedWriter(new FileWriter(new File(rawDataFolder.getPath(), "Total Mentions.csv")));
             // Total Mentions
             br.write("candidate,total-mentions");
             br.newLine();
@@ -131,11 +133,11 @@ public class Output {
             pieChart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
             pieChart.getStyler().setLegendVisible(true);
             pieChart.getStyler().setSeriesColors(new Color[]{Color.RED, Color.MAGENTA, Color.GREEN, Color.PINK, Color.yellow, Color.GRAY});
-            BitmapEncoder.saveBitmap(pieChart, folder.getPath() + "\\Total Mentions Chart", BitmapEncoder.BitmapFormat.PNG);
+            BitmapEncoder.saveBitmap(pieChart, new File(chartFolder.getPath(), "Total Mentions Chart").getPath(), BitmapEncoder.BitmapFormat.PNG);
             br.flush();
             br.close();
 
-            br = new BufferedWriter(new FileWriter(folder.getPath() + "\\Key Word Frequency.csv"));
+            br = new BufferedWriter(new FileWriter(new File(rawDataFolder.getPath(), "Key Word Frequency.csv")));
             // Key Word Frequency
             //TODO - Not correctly formatting for unknown reason
             br.write("candidate,");
@@ -175,7 +177,7 @@ public class Output {
                 }
                 wordFreqChart.addSeries(candidate.toUpperCase(), Analyzer.getKeyWordFreqWords(), freqs);
             }
-            BitmapEncoder.saveBitmap(wordFreqChart, folder.getPath() + "\\Key Word Frequency Chart", BitmapEncoder.BitmapFormat.PNG);
+            BitmapEncoder.saveBitmap(wordFreqChart, new File(chartFolder.getPath(), "Key Word Frequency Chart").getPath(), BitmapEncoder.BitmapFormat.PNG);
             br.flush();
             br.close();
         } catch (IOException e) {

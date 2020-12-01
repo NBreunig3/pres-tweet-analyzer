@@ -1,3 +1,6 @@
 out/
 .iml
 idea
+Implementation_TODO
+.gitignore
+res/twitter4j.properties

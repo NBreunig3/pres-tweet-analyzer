@@ -39,6 +39,7 @@ public abstract class Candidates {
 
         hashMap.put("Biden", "JoeBiden");
         hashMap.put("Trump", "realDonaldTrump");
+        hashMap.put("Jorgensen", "Jorgensen4POTUS");
 
         return hashMap;
     }
